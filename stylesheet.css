@@ -91,7 +91,19 @@ p {
 }
 
 h2 {
+	margin-top:1em;
+	margin-bottom:1em;
 	color:2a410f;
+}
+
+h3 {
+	background-color: #cddabe;
+	margin-top:3em;
+	margin-bottom:0.1em;
+	padding:0.5em;
+	color:2a410f;
+    max-width:35em;
+    border-top: 1px solid #080f00;
 }
 
 /*--------------------------------TABELLE---------------------------------*/
@@ -99,27 +111,26 @@ h2 {
 table {
 	font-size:10pt;
     min-width: 25em;
+    max-width:
     border-collapse: collapse;
-    margin-top: 1em;
 }
 
 table, tr {
-    border: 1px solid #080f00;
 }
 
 td {
-    width:20%;
+    max-width:25em;
     padding: 0.5em;
 }
 
 th {
 	padding:0.5em;
 	color:080f00;
-	border-bottom: 3px solid #080f00;
+	border-bottom: 1px solid #080f00;
 }
 
 tr:nth-child(even) {
-    background-color: #cddabe;
+    background-color: #edf9de;
 }
 
 /*-------------------------------FORM----------------------------*/
@@ -134,4 +145,10 @@ form {
     margin-bottom:3em;
 	padding:1em;
 	border-radius:4pt;
+}
+
+/*-----------------------------ELENCHI---------------------------*/
+ul {
+	margin-top: 2em;
+	margin-bottom: 2em;
 }
