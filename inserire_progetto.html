@@ -1,0 +1,94 @@
+<html>
+<head>
+	<title>inserisci data </title>
+</head>
+<body>
+
+
+<div class="content">
+
+<div class="insert_project">
+
+
+<form method="post" action="connect.php"  class="go_input">
+<ul class="all_input">
+
+		Titolo: <input type="text" name="titolo">
+		codice: <input type="number" name="codice_vecchio"><br>
+		Data inizio:<input type="datetime" name="data_inizio">
+		Data fine:<input type="datetime" name="data_fine">
+		Luogo: <input type="text" name="luogo_geografico">
+		Descrizione: <input type="text" name="descrizione_testuale"> 
+		<br> <br>
+		Emergenza: <select name="emergenza_si_no"><option value="si">si</option><option value="no">no</option></select>  <br>  <br>
+	    Tipo Geografico: <select name="tipologia_geografica"><option value="internazionale">internazionale</option><option value="nazionale">nazionale</option><option value="regionale">regionale</option><option value="locale">locale</option></select>
+
+	<br>
+	<br>
+
+	<input type="submit" name="submit" value="Salva"  id="dati" />
+	</ul>
+</form>
+</div>
+
+</div>
+
+<style type="text/css">
+.all_input{
+	display: block;
+	list-style-type: none;
+	text-decoration: none;
+}
+    .content{
+    	width: 80%;
+    	height: auto;
+    	margin: 0 auto;
+
+
+
+    }
+
+	.insert_project{
+		width: 40%;
+		height: auto;
+		margin: 0 auto;
+		background-color: #ddd;
+		padding: 15px;
+		display: block;
+		list-style-type: none;
+		text-align: left;
+		text-decoration: none;
+
+	}
+
+	.go_input{
+		margin: 0 auto;
+		width: 60%;
+		height: auto;
+
+		display: block;
+		list-style-type: none;
+		text-align: left;
+		text-decoration: none;
+		overflow: hidden;
+		border:1px  solid #111;
+	}
+
+
+
+	#dati{
+		background-color: blue;
+		color: #fff;
+		margin: 0 auto;
+	}
+
+</style>
+
+
+
+
+
+
+
+</body>
+</html>
