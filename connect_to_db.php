@@ -4,8 +4,8 @@
 
 $user_host = 'localhost';
 $user_server = 'root';
-$password = NULL;
-$user_DB = 'cbm';
+$password = 'pwdb';
+$user DB = 'CBM';
 
 
 
