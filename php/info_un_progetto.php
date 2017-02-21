@@ -1,20 +1,21 @@
 <?php
 
 //mi ricavo tutti i nomi delle tabelle nell'array $tabelle
+	//massimo numero di tabelle da gestire
 	$numero_tabelle = 15;
-	if (!mysql_connect('localhost', 'root', 'pwdb')) {
-		echo 'Could not connect to mysql';
+	if (!mysqli_connect('localhost', 'root', 'pwdb')) {
+		echo 'Connessione fallita';
 		exit;
 	}
-	$result = mysql_query('SHOW TABLES FROM CBM');
-	$i = 1;
+	$result = mysqli_query('SHOW TABLES FROM CBM;');
+	$i = 0;
 	$tabelle[$numero_tabelle];
-	while ($row = mysql_fetch_row($result)) {
+	while ($row = mysqli_fetch_row($result)) {
 		$tabelle[$i] = $row[0];
 		$i++;
+		//echo $tabelle[$i];
 	}
-	mysql_free_result($result);
-	
+	mysqli_free_result($result);
 //stampo la pagina
 require_once 'db_conn.php';
 echo '
@@ -48,7 +49,10 @@ echo '
 	echo '<h3>Informazioni generali</h3>';
 	echo '<table>';
 	$res_query = mysqli_query($conn, 'SELECT * FROM Progetti WHERE id_progetto="'.$id.'";');
-	if($row_query = mysqli_fetch_assoc($res_query)) {
+	if(!($row_query = mysqli_fetch_assoc($res_query))) {
+		echo "Errore del server nella selezione del progetto";
+		exit;
+	} else {
 		$res = mysqli_query($conn, 'SHOW COLUMNS FROM Progetti');
 		while($row = mysqli_fetch_object($res))	{
 			echo '<tr>';
@@ -67,8 +71,10 @@ echo '
 	
 	$i=0;
 	while ($i < $numero_tabelle) {
+		//echo $i;
 		//ottengo il nome della tabella
 		$nome_tabella = $tabelle[$i];
+		echo $tabelle[$i];
 		if ($nome_tabella != "Progetti" &&
 			$nome_tabella != "AssDisabilita" &&
 			$nome_tabella != "AssSettori" &&

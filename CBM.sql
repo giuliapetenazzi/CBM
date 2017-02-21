@@ -302,4 +302,5 @@ INSERT INTO Strumenti (id_strumento, nome) VALUES
 (11, 'Laboratorio ottico'),
 (12, 'Altro');
 
-
+INSERT INTO Progetti(id_progetto, titolo, codice_vecchio, data_inizio, data_fine, descrizione_testuale, emergenza_si_no, tipologia_geografica, luogo_geografico) VALUES
+(1, 'ProgettoDiProva', 123, 2016-12-06, 2016-12-06, 'Descrizione testuale del progetto di prova', TRUE, 'nazionale', 'Congo');
