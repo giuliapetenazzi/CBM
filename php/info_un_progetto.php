@@ -10,10 +10,10 @@
 	$result = mysqli_query('SHOW TABLES FROM CBM;');
 	$i = 0;
 	$tabelle[$numero_tabelle];
-	while ($row = mysqli_fetch_row($result)) {
+	while ($row = mysqli_fetch_object($result)) {
 		$tabelle[$i] = $row[0];
 		$i++;
-		//echo $tabelle[$i];
+		echo $tabelle[$i];
 	}
 	mysqli_free_result($result);
 //stampo la pagina
@@ -45,7 +45,8 @@ echo '
 	if($riga = mysqli_fetch_row($id_ris)) {
 		$id = ($riga[0]);
 	}
-
+	$temp=0;
+	while ($temp < 5) {$temp++; echo $tabellr[$temp];}
 	echo '<h3>Informazioni generali</h3>';
 	echo '<table>';
 	$res_query = mysqli_query($conn, 'SELECT * FROM Progetti WHERE id_progetto="'.$id.'";');
