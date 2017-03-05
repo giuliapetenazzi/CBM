@@ -3,19 +3,19 @@
 //mi ricavo tutti i nomi delle tabelle nell'array $tabelle
 	//massimo numero di tabelle da gestire
 	$numero_tabelle = 15;
-	if (!mysqli_connect('localhost', 'root', 'pwdb')) {
+	$conn = mysqli_connect('localhost', 'root', 'pwdb');
+	if (!$conn) {
 		echo 'Connessione fallita';
 		exit;
 	}
-	$result = mysqli_query('SHOW TABLES FROM CBM;');
+	$result = mysqli_query($conn, 'SHOW TABLES FROM CBM;');
 	$i = 0;
 	$tabelle[$numero_tabelle];
-	while ($row = mysqli_fetch_object($result)) {
+	while ($row = mysqli_fetch_row($result)) {
 		$tabelle[$i] = $row[0];
 		$i++;
-		echo $tabelle[$i];
 	}
-	mysqli_free_result($result);
+	
 //stampo la pagina
 require_once 'db_conn.php';
 echo '
@@ -37,7 +37,6 @@ echo '
 			</div>
 			<div id="content">
 				<h2>Informazioni del progetto: '.$_POST["titolo_inserito"].'</h2>
-
 				';	
 		
 	$id_ris = mysqli_query($conn, 'SELECT id_progetto FROM Progetti WHERE titolo="'.$_POST["titolo_inserito"].'";');
@@ -45,8 +44,10 @@ echo '
 	if($riga = mysqli_fetch_row($id_ris)) {
 		$id = ($riga[0]);
 	}
+	//cerco di fixare
 	$temp=0;
 	while ($temp < 5) {$temp++; echo $tabellr[$temp];}
+	
 	echo '<h3>Informazioni generali</h3>';
 	echo '<table>';
 	$res_query = mysqli_query($conn, 'SELECT * FROM Progetti WHERE id_progetto="'.$id.'";');
@@ -67,8 +68,6 @@ echo '
 		}
 	}
 	echo '</table>';
-
-
 	
 	$i=0;
 	while ($i < $numero_tabelle) {
@@ -110,7 +109,6 @@ echo '
 		}
 		$i++;
 	}
-
 	echo ' </div>
 		</body>
 	</html>';
