@@ -78,7 +78,10 @@ echo '
 		if ($nome_tabella != "Progetti" &&
 			$nome_tabella != "AssDisabilita" &&
 			$nome_tabella != "AssSettori" &&
-			$nome_tabella != "AsStrumenti"
+			$nome_tabella != "AsStrumenti" &&
+			$nome_tabella != "Disabilita" &&
+			$nome_tabella != "Settori" &&
+			$nome_tabella != "Strumenti"
 		) {
 			echo '<h3>'.$nome_tabella.'</h3>';
 			echo '<table>';
@@ -106,9 +109,29 @@ echo '
 				echo '</tr>';
 			}
 			echo '</table>';
+		   }
+		    $i++;
 		}
-		$i++;
-	}
+		
+		//stampo gli strumenti
+		echo '<h3>'.'Strumenti'.'</h3>';
+		echo '<ul>';
+		$res_query = mysqli_query($conn, 'SELECT Strumenti.nome AS name FROM Progetti, AssStrumenti, Strumenti WHERE Progetti.id_progetto=AssStrumenti.id_progetto AND AssStrumenti.id_strumento=Strumenti.id_strumento;');
+		while($row_query = mysqli_fetch_row($res_query)) {
+			echo '<li>'/*.$row_query[namm]*/.'test</li>';
+		}
+		echo '</ul>';	
+		
+		//stampo i settori
+		/*
+		echo '<h3>'.'Settori'.'</h3>';
+		echo '<ul>';
+		$res_query = mysqli_query($conn, 'SELECT Settori.nome AS name FROM Progetti, AssSettori, Settori WHERE Progetti.id_settore=AssSettori.id_progetto AND AssSettori.id_strumento=Settori.id_settore;');
+		while($row_query = mysqli_fetch_row($res_query)) {
+			echo '<li>BOHHHHH</li>';
+		}
+		echo '</ul>';*/
+	
 	echo ' </div>
 		</body>
 	</html>';
