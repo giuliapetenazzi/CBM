@@ -30,7 +30,7 @@ echo '
 				<h1>CBM</h1>
 				<ul>
 					<li><a href="home.php">Home</a></li>
-					<li><a href="ricerca_progetto.php">Ricerca per lettera</a></li>
+					<li><a href="ricerca_progetto.php">Cerca titoli che contengono una certa parola</a></li>
 					<li><a href="inserisci_progetto.php">Inserisci un progetto</a></li>
 					<li><a href="elimina_progetto.php">Elimina un progetto</a></li>
 				</ul>
@@ -88,7 +88,7 @@ echo '
 			$res = mysqli_query($conn, 'SHOW COLUMNS FROM '.$nome_tabella);
 			echo '<tr>';
 			while($row = mysqli_fetch_object($res))	{
-				if ($row->Field!="id_progetto") {
+				if ($row->Field!="id_progetto" /*&& strpos($row->Field, "id_")==0*/) {
 					echo '<th>';
 					echo '<strong>'.ucfirst(str_replace('_', ' ', $row->Field)).': </strong>';
 					echo '</th>';

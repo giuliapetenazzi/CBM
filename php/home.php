@@ -12,7 +12,7 @@ echo '
 				<h1>CBM</h1>
 				<ul>
 					<li id="current_page"><a href="home.php">Home</a></li>
-					<li><a href="ricerca_progetto.php">Ricerca per lettera</a></li>
+					<li><a href="ricerca_progetto.php">Cerca titoli che contengono una certa parola</a></li>
 					<li><a href="inserisci_progetto.php">Inserisci un progetto</a></li>
 					<li><a href="elimina_progetto.php">Elimina un progetto</a></li>
 				</ul>
@@ -20,7 +20,7 @@ echo '
 			<div id="content">
 				<h2>Home</h2>
 				<div class ="contenitore_generico">
-					<p>Puoi visualizzare tutte le informazioni riguardo uno specifico progetto</p>
+					<p>Per andare alla visualizzazione di tutte le informazioni riguardo uno specifico progetto</p>
 					<form action="info_un_progetto.php" method="post">
 						<label> Inserisci il titolo esatto del progetto</label>
 						<input type="text" name="titolo_inserito">
