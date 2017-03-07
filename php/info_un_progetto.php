@@ -74,11 +74,11 @@ echo '
 		//echo $i;
 		//ottengo il nome della tabella
 		$nome_tabella = $tabelle[$i];
-		echo $tabelle[$i];
+		//echo $tabelle[$i];
 		if ($nome_tabella != "Progetti" &&
 			$nome_tabella != "AssDisabilita" &&
 			$nome_tabella != "AssSettori" &&
-			$nome_tabella != "AsStrumenti" &&
+			$nome_tabella != "AssStrumenti" &&
 			$nome_tabella != "Disabilita" &&
 			$nome_tabella != "Settori" &&
 			$nome_tabella != "Strumenti"
@@ -116,21 +116,29 @@ echo '
 		//stampo gli strumenti
 		echo '<h3>'.'Strumenti'.'</h3>';
 		echo '<ul>';
-		$res_query = mysqli_query($conn, 'SELECT Strumenti.nome AS name FROM Progetti, AssStrumenti, Strumenti WHERE Progetti.id_progetto=AssStrumenti.id_progetto AND AssStrumenti.id_strumento=Strumenti.id_strumento;');
+		$res_query = mysqli_query($conn, 'SELECT Strumenti.nome FROM Progetti, AssStrumenti, Strumenti WHERE Progetti.id_progetto=AssStrumenti.id_progetto AND AssStrumenti.id_strumento=Strumenti.id_strumento;');
 		while($row_query = mysqli_fetch_row($res_query)) {
-			echo '<li>'/*.$row_query[namm]*/.'test</li>';
+			echo '<li>'.$row_query[0].'</li>';
 		}
 		echo '</ul>';	
 		
 		//stampo i settori
-		/*
 		echo '<h3>'.'Settori'.'</h3>';
 		echo '<ul>';
-		$res_query = mysqli_query($conn, 'SELECT Settori.nome AS name FROM Progetti, AssSettori, Settori WHERE Progetti.id_settore=AssSettori.id_progetto AND AssSettori.id_strumento=Settori.id_settore;');
+		$res_query = mysqli_query($conn, 'SELECT Settori.macro_settore, Settori.dettaglio_settore FROM Progetti, AssSettori, Settori WHERE Progetti.id_progetto=AssSettori.id_progetto AND AssSettori.id_settore=Settori.id_settore;');
 		while($row_query = mysqli_fetch_row($res_query)) {
-			echo '<li>BOHHHHH</li>';
+			echo '<li>'.$row_query[1].'(<em>Categoria: '.$row_query[0].')</em></li>';
 		}
-		echo '</ul>';*/
+		echo '</ul>';
+		
+		//stampo le disabilità
+		echo '<h3>'.'Disabilità'.'</h3>';
+		echo '<ul>';
+		$res_query = mysqli_query($conn, 'SELECT Disabilita.tipologia, Disabilita.nome FROM Progetti, AssDisabilita, Disabilita WHERE Progetti.id_progetto=AssDisabilita.id_progetto AND AssDisabilita.id_disabilita=Disabilita.id_disabilita;');
+		while($row_query = mysqli_fetch_row($res_query)) {
+			echo '<li>'.$row_query[1].'(<em>Tipologia: '.$row_query[0].')</em></li>';
+		}
+		echo '</ul>';
 	
 	echo ' </div>
 		</body>

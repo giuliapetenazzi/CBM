@@ -1,243 +1,131 @@
-DROP TABLE IF EXISTS Progetti;
-DROP TABLE IF EXISTS Disabilita;
-DROP TABLE IF EXISTS AssDisabilita;
-DROP TABLE IF EXISTS Settori;
-DROP TABLE IF EXISTS AssSettori;
-DROP TABLE IF EXISTS Missioni;
-DROP TABLE IF EXISTS Budjet;
-DROP TABLE IF EXISTS Finanziatori;
-DROP TABLE IF EXISTS GruppiBeneficiari;
-DROP TABLE IF EXISTS PartnersLocali;
-DROP TABLE IF EXISTS Donazioni;
-DROP TABLE IF EXISTS Contatti;
-DROP TABLE IF EXISTS Strumenti;
-DROP TABLE IF EXISTS AssStrumenti;
-DROP TABLE IF EXISTS PuntiDiInteresse;
+-- phpMyAdmin SQL Dump
+-- version 4.5.4.1deb2ubuntu2
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: Mar 07, 2017 at 07:35 PM
+-- Server version: 5.7.17-0ubuntu0.16.04.1
+-- PHP Version: 7.0.15-0ubuntu0.16.04.4
 
-/*TO DO
-chiavi esterne
-inserire il file del documento di riconoscimento del donatore
-controllare mail correttiva del tizio
-*/
-
-SET FOREIGN_KEY_CHECKS=0;
-
-CREATE TABLE  Progetti (
-  id_progetto int(11)  AUTO_INCREMENT,
-  titolo varchar(64),
-  codice_vecchio int(11),
-  data_inizio date,
-  data_fine date,
-  descrizione_testuale varchar(255),
-  emergenza_si_no tinyint(1),
-  tipologia_geografica enum('internazionale','nazionale','regionale','locale'),
-  luogo_geografico varchar(64),
-  PRIMARY KEY (id_progetto)
-);
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
-CREATE TABLE  Disabilita (
-  id_disabilita int(11) AUTO_INCREMENT PRIMARY KEY,
-  tipologia enum('visiva','uditiva','fisica','mentale'),
-  nome varchar(64)
-);
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
+--
+-- Database: `CBM`
+--
 
-CREATE TABLE  Settori (
-  id_settore int(11) AUTO_INCREMENT PRIMARY KEY,
-  macro_settore varchar(64),
-  dettaglio_settore varchar(64)
-);
+-- --------------------------------------------------------
 
+--
+-- Table structure for table `AssDisabilita`
+--
 
-CREATE TABLE  AssDisabilita (
-  id_ass_disabilita int(11) AUTO_INCREMENT PRIMARY KEY,
-  id_progetto int(11),
-  id_disabilita int(11),
-  FOREIGN KEY (id_progetto)
-				REFERENCES Progetti(id_progetto)
-				ON DELETE SET NULL
-				ON UPDATE CASCADE,
-  FOREIGN KEY (id_disabilita)
-				REFERENCES Disabilita(id_disabilita)
-				ON DELETE SET NULL
-				ON UPDATE CASCADE
-);
+CREATE TABLE `AssDisabilita` (
+  `id_ass_disabilita` int(11) NOT NULL,
+  `id_progetto` int(11) DEFAULT NULL,
+  `id_disabilita` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `AssDisabilita`
+--
 
-CREATE TABLE  AssSettori (
-  id_ass_progetti int(11)  AUTO_INCREMENT PRIMARY KEY,
-  id_progetto int(11),
-  id_settore int(11),
-  FOREIGN KEY (id_progetto)
-				REFERENCES Progetti(id_progetto)
-				ON DELETE SET NULL
-				ON UPDATE CASCADE,
-  FOREIGN KEY (id_settore)
-				REFERENCES Settori(id_settore)
-				ON DELETE SET NULL
-				ON UPDATE CASCADE
-);
+INSERT INTO `AssDisabilita` (`id_ass_disabilita`, `id_progetto`, `id_disabilita`) VALUES
+(1, 1, 3);
 
+-- --------------------------------------------------------
 
-CREATE TABLE  Missioni (
-  id_missione int(11)  AUTO_INCREMENT,
-  id_progetto int(11),
-  luogo varchar(64),
-  note varchar(255),
-  PRIMARY KEY (id_missione),
-  FOREIGN KEY (id_progetto)
-				REFERENCES Progetti(id_progetto)
-				ON DELETE SET NULL
-				ON UPDATE CASCADE
-);
+--
+-- Table structure for table `AssSettori`
+--
 
+CREATE TABLE `AssSettori` (
+  `id_ass_progetti` int(11) NOT NULL,
+  `id_progetto` int(11) DEFAULT NULL,
+  `id_settore` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE  Budjets (
-  id_budjet int(11)  AUTO_INCREMENT,
-  id_progetto int(11),
-  budjet_totale_cbm_italia float,
-  speso_effettivo_cbm_italia float,
-  budjet_totale float,
-  budjet_residuo_effettivo float,
-  PRIMARY KEY (id_budjet),
-  FOREIGN KEY (id_progetto)
-				REFERENCES Progetti(id_progetto)
-				ON DELETE SET NULL
-				ON UPDATE CASCADE
-);
+--
+-- Dumping data for table `AssSettori`
+--
 
+INSERT INTO `AssSettori` (`id_ass_progetti`, `id_progetto`, `id_settore`) VALUES
+(1, 1, 14);
 
-CREATE TABLE  Finanziatori (
-  id_finanziatore int(11)  AUTO_INCREMENT,
-  id_progetto int(11),
-  nome varchar(64),
-  data_inizio_finanziamento date,
-  data_fine_finanziamento date,
-  importo float,
-  telefono varchar(64),
-  mail varchar(64),
-  skype varchar(64),
-  tipologia enum('privato','azienda','ente_istituzionale'),
-  note varchar(255),
-  PRIMARY KEY (id_finanziatore),
-  FOREIGN KEY (id_progetto)
-				REFERENCES Progetti(id_progetto)
-				ON DELETE SET NULL
-				ON UPDATE CASCADE
-);
+-- --------------------------------------------------------
 
+--
+-- Table structure for table `AssStrumenti`
+--
 
-CREATE TABLE  GruppiBeneficiari (
-  id_gruppo_beneficiario int(11)  AUTO_INCREMENT,
-  id_progetto int(11),
-  anno_beneficiari int,
-  donne boolean,
-  uomini boolean,
-  adulti boolean,
-  bambini boolean,
-  PRIMARY KEY (id_gruppo_beneficiario),
-  FOREIGN KEY (id_progetto)
-				REFERENCES Progetti(id_progetto)
-				ON DELETE SET NULL
-				ON UPDATE CASCADE
-);
+CREATE TABLE `AssStrumenti` (
+  `id_ass_strumento` int(11) NOT NULL,
+  `id_progetto` int(11) DEFAULT NULL,
+  `id_strumento` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `AssStrumenti`
+--
 
-CREATE TABLE  PartnersLocali (
-  id_partner_locale int(11)  AUTO_INCREMENT,
-  id_progetto int(11),
-  nome varchar(64),
-  anno_partnership int,
-  ruolo varchar(64),
-  sito_web varchar(64),
-  tipologia enum('privato','azienda','ente_istituzionale'),
-  note varchar(255),
-  PRIMARY KEY (id_partner_locale),
-  FOREIGN KEY (id_progetto)
-				REFERENCES Progetti(id_progetto)
-				ON DELETE SET NULL
-				ON UPDATE CASCADE
-);
+INSERT INTO `AssStrumenti` (`id_ass_strumento`, `id_progetto`, `id_strumento`) VALUES
+(1, 1, 3);
 
+-- --------------------------------------------------------
 
-CREATE TABLE  Donazioni (
-  id_donazione int(11)  AUTO_INCREMENT,
-  id_progetto int(11),
-  nominativo_donatore varchar(64),
-  persona_di_riferimento varchar(64),
-  data_donazione date,
-  telefono varchar(64),
-  mail varchar(64),
-  position_number int (11),
-  documento varchar(255),
-  budjet_preventivo float,
-  budjet_consuntivo float,
-  tipologia enum('privato','azienda','ente_istituzionale'),
-  note varchar(255),
-  PRIMARY KEY (id_donazione),
-  FOREIGN KEY (id_progetto)
-				REFERENCES Progetti(id_progetto)
-				ON DELETE SET NULL
-				ON UPDATE CASCADE
-);
+--
+-- Table structure for table `Budjets`
+--
 
+CREATE TABLE `Budjets` (
+  `id_budjet` int(11) NOT NULL,
+  `id_progetto` int(11) DEFAULT NULL,
+  `budjet_totale_cbm_italia` float DEFAULT NULL,
+  `speso_effettivo_cbm_italia` float DEFAULT NULL,
+  `budjet_totale` float DEFAULT NULL,
+  `budjet_residuo_effettivo` float DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE  Contatti (
-  id_contatto int(11)  AUTO_INCREMENT,
-  id_progetto int(11),
-  nome varchar(64),
-  telefono varchar(64),
-  mail varchar(64),
-  skype varchar(64),
-  indirizzo varchar(64),
-  note varchar(255),
-  PRIMARY KEY (id_contatto),
-  FOREIGN KEY (id_progetto)
-				REFERENCES Progetti(id_progetto)
-				ON DELETE SET NULL
-				ON UPDATE CASCADE
-);
+-- --------------------------------------------------------
 
+--
+-- Table structure for table `Contatti`
+--
 
+CREATE TABLE `Contatti` (
+  `id_contatto` int(11) NOT NULL,
+  `id_progetto` int(11) DEFAULT NULL,
+  `nome` varchar(64) DEFAULT NULL,
+  `telefono` varchar(64) DEFAULT NULL,
+  `mail` varchar(64) DEFAULT NULL,
+  `skype` varchar(64) DEFAULT NULL,
+  `indirizzo` varchar(64) DEFAULT NULL,
+  `note` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE  AssStrumenti (
-  id_ass_strumento int(11) AUTO_INCREMENT PRIMARY KEY,
-  id_progetto int(11),
-  id_strumento int(11),
-  FOREIGN KEY (id_progetto)
-				REFERENCES Progetti(id_progetto)
-				ON DELETE SET NULL
-				ON UPDATE CASCADE,
-  FOREIGN KEY (id_strumento)
-				REFERENCES Strumenti(id_strumento)
-				ON DELETE SET NULL
-				ON UPDATE CASCADE
-);
+-- --------------------------------------------------------
 
+--
+-- Table structure for table `Disabilita`
+--
 
-CREATE TABLE  Strumenti (
-  id_strumento int(11) AUTO_INCREMENT PRIMARY KEY,
-  nome varchar(64)
-);
+CREATE TABLE `Disabilita` (
+  `id_disabilita` int(11) NOT NULL,
+  `tipologia` enum('visiva','uditiva','fisica','mentale') DEFAULT NULL,
+  `nome` varchar(64) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `Disabilita`
+--
 
-CREATE TABLE  PuntiDiInteresse (
-  id_punto_di_interesse int(11)  AUTO_INCREMENT,
-  id_progetto int(11),
-  nome varchar(64),
-  mail varchar(64),
-  note varchar(255),
-  PRIMARY KEY (id_punto_di_interesse),
-  FOREIGN KEY (id_progetto)
-				REFERENCES Progetti(id_progetto)
-				ON DELETE SET NULL
-				ON UPDATE CASCADE
-);
-
-SET FOREIGN_KEY_CHECKS=1;
-
-INSERT INTO Disabilita (id_disabilita, tipologia, nome) VALUES
+INSERT INTO `Disabilita` (`id_disabilita`, `tipologia`, `nome`) VALUES
 (1, 'visiva', 'Oncocerosi'),
 (2, 'visiva', 'Cataratta'),
 (3, 'visiva', 'Tracoma'),
@@ -257,8 +145,157 @@ INSERT INTO Disabilita (id_disabilita, tipologia, nome) VALUES
 (17, 'fisica', 'Altro'),
 (18, 'mentale', 'Altro');
 
+-- --------------------------------------------------------
 
-INSERT INTO Settori (id_settore, macro_settore, dettaglio_settore) VALUES
+--
+-- Table structure for table `Donazioni`
+--
+
+CREATE TABLE `Donazioni` (
+  `id_donazione` int(11) NOT NULL,
+  `id_progetto` int(11) DEFAULT NULL,
+  `nominativo_donatore` varchar(64) DEFAULT NULL,
+  `persona_di_riferimento` varchar(64) DEFAULT NULL,
+  `data_donazione` date DEFAULT NULL,
+  `telefono` varchar(64) DEFAULT NULL,
+  `mail` varchar(64) DEFAULT NULL,
+  `position_number` int(11) DEFAULT NULL,
+  `documento` varchar(255) DEFAULT NULL,
+  `budjet_preventivo` float DEFAULT NULL,
+  `budjet_consuntivo` float DEFAULT NULL,
+  `tipologia` enum('privato','azienda','ente_istituzionale') DEFAULT NULL,
+  `note` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Finanziatori`
+--
+
+CREATE TABLE `Finanziatori` (
+  `id_finanziatore` int(11) NOT NULL,
+  `id_progetto` int(11) DEFAULT NULL,
+  `nome` varchar(64) DEFAULT NULL,
+  `data_inizio_finanziamento` date DEFAULT NULL,
+  `data_fine_finanziamento` date DEFAULT NULL,
+  `importo` float DEFAULT NULL,
+  `telefono` varchar(64) DEFAULT NULL,
+  `mail` varchar(64) DEFAULT NULL,
+  `skype` varchar(64) DEFAULT NULL,
+  `tipologia` enum('privato','azienda','ente_istituzionale') DEFAULT NULL,
+  `note` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `GruppiBeneficiari`
+--
+
+CREATE TABLE `GruppiBeneficiari` (
+  `id_gruppo_beneficiario` int(11) NOT NULL,
+  `id_progetto` int(11) DEFAULT NULL,
+  `anno_beneficiari` int(11) DEFAULT NULL,
+  `donne` tinyint(1) DEFAULT NULL,
+  `uomini` tinyint(1) DEFAULT NULL,
+  `adulti` tinyint(1) DEFAULT NULL,
+  `bambini` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Missioni`
+--
+
+CREATE TABLE `Missioni` (
+  `id_missione` int(11) NOT NULL,
+  `id_progetto` int(11) DEFAULT NULL,
+  `luogo` varchar(64) DEFAULT NULL,
+  `note` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `Missioni`
+--
+
+INSERT INTO `Missioni` (`id_missione`, `id_progetto`, `luogo`, `note`) VALUES
+(1, 1, 'Africa', 'nessuna nota');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `PartnersLocali`
+--
+
+CREATE TABLE `PartnersLocali` (
+  `id_partner_locale` int(11) NOT NULL,
+  `id_progetto` int(11) DEFAULT NULL,
+  `nome` varchar(64) DEFAULT NULL,
+  `anno_partnership` int(11) DEFAULT NULL,
+  `ruolo` varchar(64) DEFAULT NULL,
+  `sito_web` varchar(64) DEFAULT NULL,
+  `tipologia` enum('privato','azienda','ente_istituzionale') DEFAULT NULL,
+  `note` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Progetti`
+--
+
+CREATE TABLE `Progetti` (
+  `id_progetto` int(11) NOT NULL,
+  `titolo` varchar(64) DEFAULT NULL,
+  `codice_vecchio` int(11) DEFAULT NULL,
+  `data_inizio` date DEFAULT NULL,
+  `data_fine` date DEFAULT NULL,
+  `descrizione_testuale` varchar(255) DEFAULT NULL,
+  `emergenza_si_no` tinyint(1) DEFAULT NULL,
+  `tipologia_geografica` enum('internazionale','nazionale','regionale','locale') DEFAULT NULL,
+  `luogo_geografico` varchar(64) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `Progetti`
+--
+
+INSERT INTO `Progetti` (`id_progetto`, `titolo`, `codice_vecchio`, `data_inizio`, `data_fine`, `descrizione_testuale`, `emergenza_si_no`, `tipologia_geografica`, `luogo_geografico`) VALUES
+(1, 'ProgettoDiProva', 123, '0000-00-00', '0000-00-00', 'Descrizione testuale del progetto di prova', 1, 'nazionale', 'Congo');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `PuntiDiInteresse`
+--
+
+CREATE TABLE `PuntiDiInteresse` (
+  `id_punto_di_interesse` int(11) NOT NULL,
+  `id_progetto` int(11) DEFAULT NULL,
+  `nome` varchar(64) DEFAULT NULL,
+  `mail` varchar(64) DEFAULT NULL,
+  `note` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Settori`
+--
+
+CREATE TABLE `Settori` (
+  `id_settore` int(11) NOT NULL,
+  `macro_settore` varchar(64) DEFAULT NULL,
+  `dettaglio_settore` varchar(64) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `Settori`
+--
+
+INSERT INTO `Settori` (`id_settore`, `macro_settore`, `dettaglio_settore`) VALUES
 (1, 'Salute', 'Promozione'),
 (2, 'Salute', 'Prevenzione'),
 (3, 'Salute', 'Cure mediche'),
@@ -287,8 +324,22 @@ INSERT INTO Settori (id_settore, macro_settore, dettaglio_settore) VALUES
 (26, 'Empowerment', 'Partecipazione attiva alla politica'),
 (27, 'Empowerment', 'Comunicazione');
 
+-- --------------------------------------------------------
 
-INSERT INTO Strumenti (id_strumento, nome) VALUES
+--
+-- Table structure for table `Strumenti`
+--
+
+CREATE TABLE `Strumenti` (
+  `id_strumento` int(11) NOT NULL,
+  `nome` varchar(64) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `Strumenti`
+--
+
+INSERT INTO `Strumenti` (`id_strumento`, `nome`) VALUES
 (1, 'Ausili motori'),
 (2, 'Ausili ipovedenti'),
 (3, 'Occhiali'),
@@ -302,5 +353,266 @@ INSERT INTO Strumenti (id_strumento, nome) VALUES
 (11, 'Laboratorio ottico'),
 (12, 'Altro');
 
-INSERT INTO Progetti(id_progetto, titolo, codice_vecchio, data_inizio, data_fine, descrizione_testuale, emergenza_si_no, tipologia_geografica, luogo_geografico) VALUES
-(1, 'ProgettoDiProva', 123, 2016-12-06, 2016-12-06, 'Descrizione testuale del progetto di prova', TRUE, 'nazionale', 'Congo');
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `AssDisabilita`
+--
+ALTER TABLE `AssDisabilita`
+  ADD PRIMARY KEY (`id_ass_disabilita`),
+  ADD KEY `id_progetto` (`id_progetto`),
+  ADD KEY `id_disabilita` (`id_disabilita`);
+
+--
+-- Indexes for table `AssSettori`
+--
+ALTER TABLE `AssSettori`
+  ADD PRIMARY KEY (`id_ass_progetti`),
+  ADD KEY `id_progetto` (`id_progetto`),
+  ADD KEY `id_settore` (`id_settore`);
+
+--
+-- Indexes for table `AssStrumenti`
+--
+ALTER TABLE `AssStrumenti`
+  ADD PRIMARY KEY (`id_ass_strumento`),
+  ADD KEY `id_progetto` (`id_progetto`),
+  ADD KEY `id_strumento` (`id_strumento`);
+
+--
+-- Indexes for table `Budjets`
+--
+ALTER TABLE `Budjets`
+  ADD PRIMARY KEY (`id_budjet`),
+  ADD KEY `id_progetto` (`id_progetto`);
+
+--
+-- Indexes for table `Contatti`
+--
+ALTER TABLE `Contatti`
+  ADD PRIMARY KEY (`id_contatto`),
+  ADD KEY `id_progetto` (`id_progetto`);
+
+--
+-- Indexes for table `Disabilita`
+--
+ALTER TABLE `Disabilita`
+  ADD PRIMARY KEY (`id_disabilita`);
+
+--
+-- Indexes for table `Donazioni`
+--
+ALTER TABLE `Donazioni`
+  ADD PRIMARY KEY (`id_donazione`),
+  ADD KEY `id_progetto` (`id_progetto`);
+
+--
+-- Indexes for table `Finanziatori`
+--
+ALTER TABLE `Finanziatori`
+  ADD PRIMARY KEY (`id_finanziatore`),
+  ADD KEY `id_progetto` (`id_progetto`);
+
+--
+-- Indexes for table `GruppiBeneficiari`
+--
+ALTER TABLE `GruppiBeneficiari`
+  ADD PRIMARY KEY (`id_gruppo_beneficiario`),
+  ADD KEY `id_progetto` (`id_progetto`);
+
+--
+-- Indexes for table `Missioni`
+--
+ALTER TABLE `Missioni`
+  ADD PRIMARY KEY (`id_missione`),
+  ADD KEY `id_progetto` (`id_progetto`);
+
+--
+-- Indexes for table `PartnersLocali`
+--
+ALTER TABLE `PartnersLocali`
+  ADD PRIMARY KEY (`id_partner_locale`),
+  ADD KEY `id_progetto` (`id_progetto`);
+
+--
+-- Indexes for table `Progetti`
+--
+ALTER TABLE `Progetti`
+  ADD PRIMARY KEY (`id_progetto`);
+
+--
+-- Indexes for table `PuntiDiInteresse`
+--
+ALTER TABLE `PuntiDiInteresse`
+  ADD PRIMARY KEY (`id_punto_di_interesse`),
+  ADD KEY `id_progetto` (`id_progetto`);
+
+--
+-- Indexes for table `Settori`
+--
+ALTER TABLE `Settori`
+  ADD PRIMARY KEY (`id_settore`);
+
+--
+-- Indexes for table `Strumenti`
+--
+ALTER TABLE `Strumenti`
+  ADD PRIMARY KEY (`id_strumento`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `AssDisabilita`
+--
+ALTER TABLE `AssDisabilita`
+  MODIFY `id_ass_disabilita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `AssSettori`
+--
+ALTER TABLE `AssSettori`
+  MODIFY `id_ass_progetti` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `AssStrumenti`
+--
+ALTER TABLE `AssStrumenti`
+  MODIFY `id_ass_strumento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `Budjets`
+--
+ALTER TABLE `Budjets`
+  MODIFY `id_budjet` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `Contatti`
+--
+ALTER TABLE `Contatti`
+  MODIFY `id_contatto` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `Disabilita`
+--
+ALTER TABLE `Disabilita`
+  MODIFY `id_disabilita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+--
+-- AUTO_INCREMENT for table `Donazioni`
+--
+ALTER TABLE `Donazioni`
+  MODIFY `id_donazione` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `Finanziatori`
+--
+ALTER TABLE `Finanziatori`
+  MODIFY `id_finanziatore` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `GruppiBeneficiari`
+--
+ALTER TABLE `GruppiBeneficiari`
+  MODIFY `id_gruppo_beneficiario` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `Missioni`
+--
+ALTER TABLE `Missioni`
+  MODIFY `id_missione` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `PartnersLocali`
+--
+ALTER TABLE `PartnersLocali`
+  MODIFY `id_partner_locale` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `Progetti`
+--
+ALTER TABLE `Progetti`
+  MODIFY `id_progetto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `PuntiDiInteresse`
+--
+ALTER TABLE `PuntiDiInteresse`
+  MODIFY `id_punto_di_interesse` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `Settori`
+--
+ALTER TABLE `Settori`
+  MODIFY `id_settore` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+--
+-- AUTO_INCREMENT for table `Strumenti`
+--
+ALTER TABLE `Strumenti`
+  MODIFY `id_strumento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `AssDisabilita`
+--
+ALTER TABLE `AssDisabilita`
+  ADD CONSTRAINT `AssDisabilita_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `AssDisabilita_ibfk_2` FOREIGN KEY (`id_disabilita`) REFERENCES `Disabilita` (`id_disabilita`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `AssSettori`
+--
+ALTER TABLE `AssSettori`
+  ADD CONSTRAINT `AssSettori_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `AssSettori_ibfk_2` FOREIGN KEY (`id_settore`) REFERENCES `Settori` (`id_settore`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `AssStrumenti`
+--
+ALTER TABLE `AssStrumenti`
+  ADD CONSTRAINT `AssStrumenti_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `AssStrumenti_ibfk_2` FOREIGN KEY (`id_strumento`) REFERENCES `Strumenti` (`id_strumento`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `Budjets`
+--
+ALTER TABLE `Budjets`
+  ADD CONSTRAINT `Budjets_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `Contatti`
+--
+ALTER TABLE `Contatti`
+  ADD CONSTRAINT `Contatti_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `Donazioni`
+--
+ALTER TABLE `Donazioni`
+  ADD CONSTRAINT `Donazioni_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `Finanziatori`
+--
+ALTER TABLE `Finanziatori`
+  ADD CONSTRAINT `Finanziatori_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `GruppiBeneficiari`
+--
+ALTER TABLE `GruppiBeneficiari`
+  ADD CONSTRAINT `GruppiBeneficiari_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `Missioni`
+--
+ALTER TABLE `Missioni`
+  ADD CONSTRAINT `Missioni_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `PartnersLocali`
+--
+ALTER TABLE `PartnersLocali`
+  ADD CONSTRAINT `PartnersLocali_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `PuntiDiInteresse`
+--
+ALTER TABLE `PuntiDiInteresse`
+  ADD CONSTRAINT `PuntiDiInteresse_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
