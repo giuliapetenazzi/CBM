@@ -20,7 +20,7 @@ echo '
 			<div id="content">
 				<h2>Elimina progetti</h2>
 					<p>Scegli quali progetti eliminare definitivamente dal database</p>
-					<form action="effettua_eliminazione_progetto.php" method="post">';
+				<form action="effettua_eliminazione_progetto.php" method="post">';
 					$sql = 'SELECT * FROM Progetti ORDER BY titolo;';
 					$result = mysqli_query($conn, $sql);
 					if (mysqli_num_rows($result) > 0) 	{
@@ -34,7 +34,7 @@ echo '
 							</tr>';
 						while($row = mysqli_fetch_assoc($result)) {
 							echo'<tr>
-										<td><input type="radio" name="radiobox" value="'.$row[id].'" /></td>
+										<td><input type="radio" name="id_progetto" value="'.$row[id_progetto].'" /></td>
 										<td>'.$row[titolo].'</td>
 										<td>'.$row[luogo_geografico].'</td>
 										<td>'.$row[data_inizio].'</td>
@@ -43,7 +43,7 @@ echo '
 						}
 						echo'</table>
 						<input type="reset" value="Deseleziona tutti">
-						<input type="submit" value="Elimina definitivamente">';
+						<input type="submit" value="Elimina definitivamente"></form>';
 					} else {
 						echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 					}
