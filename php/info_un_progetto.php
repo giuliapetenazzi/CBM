@@ -47,7 +47,34 @@ echo '
 	//cerco di fixare
 	$temp=0;
 	while ($temp < 5) {$temp++; echo $tabellr[$temp];}
+
+	// scaricare il file----------------------------------------------------------------
+		include 'library/config.php';
+		include 'library/opendb.php';
+
+		//$query = "SELECT id, name FROM progetti";
+		//$result = mysql_query($query) or die('Error, query failed');
+		//if(mysql_num_rows($result) == 0){
+		//	echo "Database is empty <br>";
+		//}else{
+		//	while(list($id, $name) = mysql_fetch_array($result)) {
+				echo'<a href="download.php?id='.$id.'">
+						<img src="download_file.png" alt="icona di download" width="40px"> Scarica allegato
+					</a> <br>';
+		//	}
+		//}
+		include 'library/closedb.php';
+	//fine scaricamento file	--------------------------------------------------------
+	// caricare il file-----------------------------------------------------------------
+	echo '<form method="post" enctype="multipart/form-data" action="upload.php">
+			<input type="hidden" name="MAX_FILE_SIZE" value="2000000">
+			<input type="hidden" id="id_proj" value="'.$id.'">
+			<input name="userfile" type="file" id="userfile">
+			<input name="upload" type="submit" id="upload" value="Carica allegato">
+		</form>';
+	//fine caricamento file--------------------------------------------------------------
 	
+
 	echo '<h3>Informazioni generali</h3>';
 	echo '<table>';
 	$res_query = mysqli_query($conn, 'SELECT * FROM Progetti WHERE id_progetto="'.$id.'";');

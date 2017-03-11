@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 07, 2017 at 07:35 PM
+-- Generation Time: Mar 11, 2017 at 12:17 PM
 -- Server version: 5.7.17-0ubuntu0.16.04.1
 -- PHP Version: 7.0.15-0ubuntu0.16.04.4
 
@@ -255,15 +255,16 @@ CREATE TABLE `Progetti` (
   `descrizione_testuale` varchar(255) DEFAULT NULL,
   `emergenza_si_no` tinyint(1) DEFAULT NULL,
   `tipologia_geografica` enum('internazionale','nazionale','regionale','locale') DEFAULT NULL,
-  `luogo_geografico` varchar(64) DEFAULT NULL
+  `luogo_geografico` varchar(64) DEFAULT NULL,
+  `file` longblob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `Progetti`
 --
 
-INSERT INTO `Progetti` (`id_progetto`, `titolo`, `codice_vecchio`, `data_inizio`, `data_fine`, `descrizione_testuale`, `emergenza_si_no`, `tipologia_geografica`, `luogo_geografico`) VALUES
-(1, 'ProgettoDiProva', 123, '0000-00-00', '0000-00-00', 'Descrizione testuale del progetto di prova', 1, 'nazionale', 'Congo');
+INSERT INTO `Progetti` (`id_progetto`, `titolo`, `codice_vecchio`, `data_inizio`, `data_fine`, `descrizione_testuale`, `emergenza_si_no`, `tipologia_geografica`, `luogo_geografico`, `file`) VALUES
+(1, 'ProgettoDiProva', 123, '0000-00-00', '0000-00-00', 'Descrizione testuale del progetto di prova', 1, 'nazionale', 'Congo', '');
 
 -- --------------------------------------------------------
 

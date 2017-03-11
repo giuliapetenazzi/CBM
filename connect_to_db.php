@@ -6,7 +6,7 @@ $user_host = 'localhost';
 $user_server = 'root';
 $password = 'pwdb';
 $user DB = 'CBM';
-
+dffddf
 
 
 $conn = mysqli_connect($user_host,$user_server,$password, $user_DB);
