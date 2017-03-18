@@ -11,15 +11,15 @@ echo '
 			<div id="header">
 				<h1>CBM</h1>
 				<ul>
-					<li id="current_page"><a href="home.php">Home</a></li>
+					<li><a href="home.php">Home</a></li>
 					<li><a href="ricerca_progetto.php">Cerca titoli che contengono una certa parola</a></li>
 					<li><a href="inserisci_progetto.php">Inserisci un progetto</a></li>
 					<li><a href="elimina_progetto.php">Elimina un progetto</a></li>
 				</ul>
 			</div>
 			<div id="content">
-				<h2>C''è stato un errore durante l''operazione</h2>';
-	echo ' </div>
+				<h2>Errore durante l\'operazione</h2>
+			</div>
 		</body>
 	</html>';
 ?>

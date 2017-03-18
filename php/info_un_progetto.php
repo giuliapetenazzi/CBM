@@ -45,33 +45,33 @@ echo '
 		$id = ($riga[0]);
 	}
 	//cerco di fixare
-	$temp=0;
-	while ($temp < 5) {$temp++; echo $tabellr[$temp];}
+	//$temp=0;
+	//while ($temp < 5) {$temp++; echo $tabellr[$temp];}
 
 	// scaricare il file----------------------------------------------------------------
-		include 'library/config.php';
-		include 'library/opendb.php';
-
-		//$query = "SELECT id, name FROM progetti";
-		//$result = mysql_query($query) or die('Error, query failed');
-		//if(mysql_num_rows($result) == 0){
-		//	echo "Database is empty <br>";
-		//}else{
-		//	while(list($id, $name) = mysql_fetch_array($result)) {
-				echo'<a href="download.php?id='.$id.'">
-						<img src="download_file.png" alt="icona di download" width="40px"> Scarica allegato
-					</a> <br>';
+	include 'library/config.php';
+	include 'library/opendb.php';
+	echo '<div class = "contenitore_generico">';
+	$query_temp = "SELECT payload FROM Uploaded WHERE id_progetto = '$id'";
+	$result_temp = mysqli_query($conn, $query_temp) or die('Error, query failed');
+	$file_temp = mysqli_fetch_array($result_temp);
+	if($file_temp) {
+		echo'<a href="download.php?id='.$id.'">
+				<img src="download_file.png" alt="icona di download" width="40px"> Scarica allegato
+			</a> <br> <br>';
 		//	}
 		//}
 		include 'library/closedb.php';
+	}
 	//fine scaricamento file	--------------------------------------------------------
 	// caricare il file-----------------------------------------------------------------
 	echo '<form method="post" enctype="multipart/form-data" action="upload.php">
 			<input type="hidden" name="MAX_FILE_SIZE" value="2000000">
-			<input type="hidden" id="id_proj" value="'.$id.'">
-			<input name="userfile" type="file" id="userfile">
-			<input name="upload" type="submit" id="upload" value="Carica allegato">
+			<input type="hidden" id="id_proj" name="id_proj" value="'.$id.'">
+			<input name="userfile" type="file" id="userfile"><br>
+			<input name="upload" type="submit" id="upload" value="Carica allegato scelto qui sopra">
 		</form>';
+	echo '</div>';
 	//fine caricamento file--------------------------------------------------------------
 	
 

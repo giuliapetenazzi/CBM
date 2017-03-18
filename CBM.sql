@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 11, 2017 at 12:17 PM
+-- Generation Time: Mar 18, 2017 at 04:18 PM
 -- Server version: 5.7.17-0ubuntu0.16.04.1
 -- PHP Version: 7.0.15-0ubuntu0.16.04.4
 
@@ -255,16 +255,15 @@ CREATE TABLE `Progetti` (
   `descrizione_testuale` varchar(255) DEFAULT NULL,
   `emergenza_si_no` tinyint(1) DEFAULT NULL,
   `tipologia_geografica` enum('internazionale','nazionale','regionale','locale') DEFAULT NULL,
-  `luogo_geografico` varchar(64) DEFAULT NULL,
-  `file` longblob NOT NULL
+  `luogo_geografico` varchar(64) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `Progetti`
 --
 
-INSERT INTO `Progetti` (`id_progetto`, `titolo`, `codice_vecchio`, `data_inizio`, `data_fine`, `descrizione_testuale`, `emergenza_si_no`, `tipologia_geografica`, `luogo_geografico`, `file`) VALUES
-(1, 'ProgettoDiProva', 123, '0000-00-00', '0000-00-00', 'Descrizione testuale del progetto di prova', 1, 'nazionale', 'Congo', '');
+INSERT INTO `Progetti` (`id_progetto`, `titolo`, `codice_vecchio`, `data_inizio`, `data_fine`, `descrizione_testuale`, `emergenza_si_no`, `tipologia_geografica`, `luogo_geografico`) VALUES
+(1, 'ProgettoDiProva', 123, '0000-00-00', '0000-00-00', 'Descrizione testuale del progetto di prova', 1, 'nazionale', 'Congo');
 
 -- --------------------------------------------------------
 
@@ -353,6 +352,27 @@ INSERT INTO `Strumenti` (`id_strumento`, `nome`) VALUES
 (10, 'Antibiotici'),
 (11, 'Laboratorio ottico'),
 (12, 'Altro');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Uploaded`
+--
+
+CREATE TABLE `Uploaded` (
+  `id_uploaded` int(11) NOT NULL,
+  `id_progetto` int(11) NOT NULL,
+  `nome_file` varchar(255) NOT NULL,
+  `payload` longblob NOT NULL,
+  `note` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `Uploaded`
+--
+
+INSERT INTO `Uploaded` (`id_uploaded`, `id_progetto`, `nome_file`, `payload`, `note`) VALUES
+(1, 1, 'file_di_prova.txt', 0x70726f76610a, '');
 
 --
 -- Indexes for dumped tables
@@ -463,6 +483,13 @@ ALTER TABLE `Strumenti`
   ADD PRIMARY KEY (`id_strumento`);
 
 --
+-- Indexes for table `Uploaded`
+--
+ALTER TABLE `Uploaded`
+  ADD PRIMARY KEY (`id_uploaded`),
+  ADD KEY `id_progetto` (`id_progetto`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -475,7 +502,7 @@ ALTER TABLE `AssDisabilita`
 -- AUTO_INCREMENT for table `AssSettori`
 --
 ALTER TABLE `AssSettori`
-  MODIFY `id_ass_progetti` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_ass_progetti` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `AssStrumenti`
 --
@@ -542,6 +569,11 @@ ALTER TABLE `Settori`
 ALTER TABLE `Strumenti`
   MODIFY `id_strumento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
+-- AUTO_INCREMENT for table `Uploaded`
+--
+ALTER TABLE `Uploaded`
+  MODIFY `id_uploaded` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
 -- Constraints for dumped tables
 --
 
@@ -549,70 +581,76 @@ ALTER TABLE `Strumenti`
 -- Constraints for table `AssDisabilita`
 --
 ALTER TABLE `AssDisabilita`
-  ADD CONSTRAINT `AssDisabilita_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `AssDisabilita_ibfk_2` FOREIGN KEY (`id_disabilita`) REFERENCES `Disabilita` (`id_disabilita`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `AssDisabilita_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `AssDisabilita_ibfk_2` FOREIGN KEY (`id_disabilita`) REFERENCES `Disabilita` (`id_disabilita`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `AssSettori`
 --
 ALTER TABLE `AssSettori`
-  ADD CONSTRAINT `AssSettori_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `AssSettori_ibfk_2` FOREIGN KEY (`id_settore`) REFERENCES `Settori` (`id_settore`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `AssSettori_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `AssSettori_ibfk_2` FOREIGN KEY (`id_settore`) REFERENCES `Settori` (`id_settore`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `AssStrumenti`
 --
 ALTER TABLE `AssStrumenti`
-  ADD CONSTRAINT `AssStrumenti_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `AssStrumenti_ibfk_2` FOREIGN KEY (`id_strumento`) REFERENCES `Strumenti` (`id_strumento`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `AssStrumenti_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `AssStrumenti_ibfk_2` FOREIGN KEY (`id_strumento`) REFERENCES `Strumenti` (`id_strumento`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `Budjets`
 --
 ALTER TABLE `Budjets`
-  ADD CONSTRAINT `Budjets_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `Budjets_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `Contatti`
 --
 ALTER TABLE `Contatti`
-  ADD CONSTRAINT `Contatti_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `Contatti_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `Donazioni`
 --
 ALTER TABLE `Donazioni`
-  ADD CONSTRAINT `Donazioni_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `Donazioni_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `Finanziatori`
 --
 ALTER TABLE `Finanziatori`
-  ADD CONSTRAINT `Finanziatori_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `Finanziatori_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `GruppiBeneficiari`
 --
 ALTER TABLE `GruppiBeneficiari`
-  ADD CONSTRAINT `GruppiBeneficiari_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `GruppiBeneficiari_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `Missioni`
 --
 ALTER TABLE `Missioni`
-  ADD CONSTRAINT `Missioni_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `Missioni_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `PartnersLocali`
 --
 ALTER TABLE `PartnersLocali`
-  ADD CONSTRAINT `PartnersLocali_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `PartnersLocali_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `PuntiDiInteresse`
 --
 ALTER TABLE `PuntiDiInteresse`
-  ADD CONSTRAINT `PuntiDiInteresse_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `PuntiDiInteresse_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `Uploaded`
+--
+ALTER TABLE `Uploaded`
+  ADD CONSTRAINT `Uploaded_ibfk_1` FOREIGN KEY (`id_progetto`) REFERENCES `Progetti` (`id_progetto`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

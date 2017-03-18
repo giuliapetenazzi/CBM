@@ -1,5 +1,14 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
+/*
+rosso scuro         (AAA su white) 421515
+rosso scurissimo    (AAA su white) 371212
+rosso medio-scuro	(AAA su white) 5e1b1b
+rosso medio         (AAA su white) 9e2829
+rosso chiaro        (AAA su black) ef8585
+rosso chiarissimo   (AAA su black) ffedee
+*/
+
 *{
 	padding: 0em;
 	margin: 0em;
@@ -10,7 +19,8 @@ colori utilizzati
 */
 
 body {
-    background-color: #cddabe;
+	color:white;
+    background-color: #9e2829;
     font-family: 'Nunito', sans-serif;
 	font-size: 10pt;
 	padding-top:8em;
@@ -34,7 +44,7 @@ a:hover {
 	position: fixed; 
 	top: 0;  
 	left: 0; 
-	background: #142500;  
+	background: #421515;  
 	text-align: center;
 }
 
@@ -47,7 +57,7 @@ a:hover {
 /*------------------------------------NAV---------------------------------*/
 
 #header ul {
-	background-color: #2a410f;
+	background-color: #9e2829;
 	min-width: 4.5em;
 	list-style-type: none;
 }
@@ -66,11 +76,11 @@ a:hover {
 }
 
 #header li#current_page{
-	background-color: #080f00;
+	background-color: #371212;
 }
 
 #header li:hover {
-	background-color: #73944b;
+	background-color: #5e1b1b;
 	-webkit-transition: background-color 200ms ease-out;
     -moz-transition: background-color 200ms ease-out;
     -o-transition: background-color 200ms ease-out;
@@ -91,22 +101,26 @@ p {
 h2 {
 	margin-top:1em;
 	margin-bottom:1em;
-	color:2a410f;
+	color:#421515;
 }
 
 h3 {
-	background-color: #cddabe;
+	background-color: #9e2829;
 	margin-top:3em;
 	margin-bottom:0.1em;
 	padding:0.5em;
-	color:2a410f;
+	color:white;
     max-width:35em;
     border-top: 1px solid #080f00;
 }
 
+#content {
+	color:black;
+}
 /*--------------------------------TABELLE---------------------------------*/
 
 table {
+	color:black;
 	font-size:10pt;
     min-width: 25em;
     max-width:
@@ -123,12 +137,12 @@ td {
 
 th {
 	padding:0.5em;
-	color:080f00;
-	border-bottom: 1px solid #080f00;
+	color:#421515;
+	border-bottom: 1px solid #371212;
 }
 
 tr:nth-child(even) {
-    background-color: #edf9de;
+    background-color: #ffedee;
 }
 
 /*-------------------------------FORM----------------------------*/
@@ -138,7 +152,7 @@ form {
 }
 
 .contenitore_generico {
-    border: 1px solid #080f00;
+    border: 1px solid #371212;
     margin-top:3em;
     margin-bottom:3em;
 	padding:1em;
